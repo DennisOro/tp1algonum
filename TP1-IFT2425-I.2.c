@@ -320,8 +320,13 @@ void Egalise(float** img,int lgth,int wdth,int thresh)
 //----------------------------------------------------------
 double fdx(float x1, float eps)
 {
-
-  return (-fx(x1+2*eps) + 8*fx(x1+eps) - 8*fx(x1-eps) + fx(x1-2*eps))/12*eps;
+  double num1, num2, num3, num4, den;
+  num1 = -fx(x1+2*eps);
+  num2 = 8*fx(x1+eps);
+  num3 = -8*fx(x1+eps);
+  num4 = fx(x1-2*eps);
+  den = 12*eps;
+  return (num1 + num2 + num3 + num4)/den;
 };
 
 //----------------------------------------------------------
@@ -331,7 +336,10 @@ double fx(float x1)
 {
   int n = 10;
   double yi[10] = {0.11, 0.24, 0.27, 0.52, 1.13, 1.54, 1.71, 1.84, 1.92, 2.01};
-  double num, den, scd, x2;
+  double num=0.0;
+  double den=0.0;
+  double scd=0.0;
+  double x2=0.0;
 
   for (int i = 0; i < n; i++)
     num += pow(yi[i], x1) * log(yi[i]);
@@ -386,13 +394,13 @@ int main(int argc,char** argv)
     //Algorithme NEWTON
     //---------------------------
     printf("%s\n", "implementation algo de NEWTON");
-    float eps = 0.000001;
+    float eps = 0.00001;
+    float tolerance = 0.000001;
     float x1 = 0.25;
-    int n = 10;
-    float x2 = fx(x1);
+    float x2 = x1 - fx(x1)/fdx(x1, eps);
     int counter =1;
 
-    while (fabs(x1-x2)>=eps && fabs(fx(x1))>=eps && fdx(x1, eps)!=0) {
+    while (fabs(x1-x2)>=tolerance && fabs(fx(x1))>=tolerance && fdx(x1, eps)!=0) {
 
       printf("iteration no    : %i\n",counter );
       printf("valeur de x1    : %f\n",x1);
@@ -405,7 +413,7 @@ int main(int argc,char** argv)
       x1 = x1 - fx(x1)/fdx(x1, eps);
 
       counter += 1;
-      if (counter == 150) {
+      if (counter == 100000) {
         break;
       }
     }
