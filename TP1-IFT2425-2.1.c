@@ -345,6 +345,7 @@ int main(int argc,char** argv)
   //--------------------------------------------------------------------------------
   // PROGRAMME ---------------------------------------------------------------------
   //--------------------------------------------------------------------------------
+  
   float ck, cl, zx, zy, tempx;
   int maxiter = 200;
   int count;
@@ -363,21 +364,18 @@ int main(int argc,char** argv)
        count = 0;
        while ((zx * zx + zy * zy < 4) && (count < maxiter))
            {
-               // Calculate Mandelbrot function
-               // z = z*z + c where z is a complex number
-               //printf("%s\n","passe" );
                // tempx = z_real*_real - z_imaginary*z_imaginary + c_real
                tempx = zx * zx - zy * zy + ck;
 
                // 2*z_real*z_imaginary + c_imaginary
                zy = 2 * zx * zy + cl;
 
-               // Updating z_real = tempx
+               // changement de variable
                zx = tempx;
 
-               // Increment count
                count = count + 1;
            }
+           // verifier si la suite a convergé
            if (count < 200) {
               Graph2D[k][l]=255;
            } else {
