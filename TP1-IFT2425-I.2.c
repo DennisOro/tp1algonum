@@ -1,6 +1,6 @@
 //------------------------------------------------------
 // module  : Tp-IFT2425-I.1.c
-// author  :
+// author  : Kevin Laurent (20062981) et Dennis Orozco
 // date    :
 // version : 1.0
 // language: C
@@ -400,7 +400,7 @@ int main(int argc,char** argv)
     float x2 = x1 - fx(x1)/fdx(x1, eps);
     int counter =1;
 
-    while (fabs(x1-x2)>=tolerance && fabs(fx(x1))>=tolerance && fdx(x1, eps)!=0) {
+    while (fabs(x1-x2)>=tolerance && fabs(fx(x1))>=tolerance && fdx(x1, eps)!=0 && counter <= 1000) {
 
       printf("iteration no    : %i\n",counter );
       printf("valeur de x1    : %f\n",x1);
@@ -413,10 +413,9 @@ int main(int argc,char** argv)
       x1 = x1 - fx(x1)/fdx(x1, eps);
 
       counter += 1;
-      if (counter == 100000) {
-        break;
-      }
     }
+
+    printf("Racine retrouve, valeur de Cmv : %f \n", x1);
 
   //--------------------------------------------------------------------------------
   //---------------- visu sous XWINDOW ---------------------------------------------

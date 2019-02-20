@@ -1,6 +1,6 @@
 //------------------------------------------------------
 // module  : Tp-IFT2425-I.1.c
-// author  :
+// author  : Kevin Laurent (20062981) et Dennis Orozco
 // date    :
 // version : 1.0
 // language: C
@@ -397,7 +397,7 @@ int main(int argc,char** argv)
    x_ppicture=cree_Ximage(Graph2D,zoom,length,width);
 
    //Sauvegarde
-   SaveImagePgm((char*)"",(char*)"FractalMandelbrot",Graph2D,length,width);
+   SaveImagePgm((char*)"",(char*)"FractalMandelbrot_QII.1",Graph2D,length,width);
    printf("\n\n Pour quitter,appuyer sur la barre d'espace");
    fflush(stdout);
 

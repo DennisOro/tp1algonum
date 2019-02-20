@@ -1,6 +1,6 @@
 //------------------------------------------------------
 // module  : Tp-IFT2425-I.1.c
-// author  :
+// author  : Kevin Laurent (20062981) et Dennis Orozco
 // date    :
 // version : 1.0
 // language: C
@@ -343,7 +343,7 @@ int main(int argc,char** argv)
 
 
   //--------------------------------------------------------------------------------
-  // PROGRAMME II.2  ---------------------------------------------------------------
+  // PROGRAMME II.3  ---------------------------------------------------------------
   //--------------------------------------------------------------------------------
   float xk, yl, zx, zy, tempx;
   int K, L;
@@ -351,7 +351,7 @@ int main(int argc,char** argv)
   float pas = 0.1;
   int count;
   // implementation FractalMandelbrot
-  for(float k=0.0;k<length;k=k+pas)
+  for(float k=0.0;k<=length;k=k+pas)
   {
     for(float l=0.0;l<width;l=l+pas) 
     {
@@ -378,6 +378,7 @@ int main(int argc,char** argv)
         // Pas dans l'ensemble de Mandelbrolt
         zx = 0;
         zy = 0;
+        
         while (sqrt(zx*zx + zy*zy) <= 2) 
         {
           // Trouver Z(n+1)
@@ -386,8 +387,8 @@ int main(int argc,char** argv)
           zx = tempx;
 
           //convertir (xk, yl) en coordonnee (k, l)
-          K = (int) (zx * (width-1))/2.0 + (width/1.35);
-          L = (int) (zy * (length-1))/2.0 + (length/2.0);
+          K = round( (zx * (width-1))/2.0 + (width/1.35) );
+          L = round( (zy * (length-1))/2.0 + (length/2.0) );
           if (K>=0 && L >=0 && K<width && L<length)
             Graph2D[K][L] += 1;
         }
@@ -416,7 +417,7 @@ int main(int argc,char** argv)
    x_ppicture=cree_Ximage(Graph2D,zoom,length,width);
 
    //Sauvegarde
-   SaveImagePgm((char*)"",(char*)"FractalMandelbrot",Graph2D,length,width);
+   SaveImagePgm((char*)"",(char*)"FractalMandelbrot_QII.2",Graph2D,length,width);
    printf("\n\n Pour quitter,appuyer sur la barre d'espace");
    fflush(stdout);
 

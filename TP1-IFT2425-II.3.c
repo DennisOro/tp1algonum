@@ -1,6 +1,6 @@
 //------------------------------------------------------
 // module  : Tp-IFT2425-I.1.c
-// author  :
+// author  : Kevin Laurent (20062981) et Dennis Orozco
 // date    :
 // version : 1.0
 // language: C
@@ -350,6 +350,8 @@ int main(int argc,char** argv)
   int maxiter = 200;
   float pas = 0.1;
   int count;
+  int coord_K[200] = {0};
+  int coord_L[200] = {0};
   // implementation FractalMandelbrot
   for(float k=0.0;k<length;k=k+pas)
   {
@@ -371,24 +373,22 @@ int main(int argc,char** argv)
         tempx = zx * zx - zy * zy + xk;
         zy = 2 * zx * zy + yl;
         zx = tempx;
+
+        //convertir (xk, yl) en coordonnee (k, l)
+        K = round( (zx * (width-1))/2.0 + (width/1.35) );
+        L = round( (zy * (length-1))/2.0 + (length/2.0) );
+        coord_K[count] = K;
+        coord_L[count] = L;
+
         count = count + 1;
       }
       if (count == maxiter)
       {
-        // Pas dans l'ensemble de Mandelbrolt
-        zx = 0;
-        zy = 0;
-        while (sqrt(zx*zx + zy*zy) <= 2) 
+        for (int c=0; c<count; c++)
         {
-          // Trouver Z(n+1)
-          tempx = zx * zx - zy * zy + xk;
-          zy = 2 * zx * zy + yl;
-          zx = tempx;
-
-          //convertir (xk, yl) en coordonnee (k, l)
-          K = (int) (zx * (width-1))/2.0 + (width/1.35);
-          L = (int) (zy * (length-1))/2.0 + (length/2.0);
-          if (K>=0 && L >=0 && K<width && L<length)
+          K = coord_K[c];
+          L = coord_L[c];
+          if (K >= 0 && L >=0 && K < width && L < length)
             Graph2D[K][L] += 1;
         }
       }
@@ -416,7 +416,7 @@ int main(int argc,char** argv)
    x_ppicture=cree_Ximage(Graph2D,zoom,length,width);
 
    //Sauvegarde
-   SaveImagePgm((char*)"",(char*)"FractalMandelbrot",Graph2D,length,width);
+   SaveImagePgm((char*)"",(char*)"FractalMandelbrot_QII.3",Graph2D,length,width);
    printf("\n\n Pour quitter,appuyer sur la barre d'espace");
    fflush(stdout);
 

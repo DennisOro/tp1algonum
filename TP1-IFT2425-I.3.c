@@ -1,6 +1,6 @@
 //------------------------------------------------------
 // module  : Tp-IFT2425-I.1.c
-// author  :
+// author  : Kevin Laurent (20062981) et Dennis Orozco
 // date    :
 // version : 1.0
 // language: C
